@@ -18,6 +18,18 @@ public class Flight {
     public
 
     public String getFlightNumber(){
-        return flightNumber
+        return flightNumber;
+    }
+    public String getOrigin(){
+        return origin;
+    }
+    public String getDestination(){
+        return destination;
+    }
+    public String getDepartureTime(){
+        return departureTime;
+    }
+    public String getStatus(){
+        return status;
     }
 }
