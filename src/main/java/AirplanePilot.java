@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class AirplanePilot extends Employee {
     private String license;
     private int flightHours;
@@ -16,5 +19,27 @@ public class AirplanePilot extends Employee {
         System.out.println("Pilot Details:");
         System.out.println("License: " + license);
         System.out.println("Total Flight Hours: " + flightHours);
+    }
+
+    //CRUD MEthods
+    private List<AirplanePilot> airplanePilots = new ArrayList<>();
+    //create
+    public void addPilot(AirplanePilot airplanePilot) {
+        airplanePilots.add(airplanePilot);
+    }
+
+    //read
+    public List<AirplanePilot> getAllPilots() {
+        return airplanePilots;
+    }
+
+    //update
+    public void updatePilots(AirplanePilot updatedPilot) {
+
+    };
+
+    //delete
+    public void deletePilot(String id){
+        airplanePilots.removeIf(pilot -> pilot.getiD().equals(id));
     }
 }

@@ -22,8 +22,8 @@ public class Person {
         return contact;
     }
 
-    public void setiD(String iD){
-        this.iD=iD;
+    public String getiD(){
+        return iD;
     }
 
     public String getInfos(){

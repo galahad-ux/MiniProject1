@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Passenger extends Person {
     public String passport;
     private Reservation currentReservation;
@@ -21,5 +24,27 @@ public class Passenger extends Person {
 
     public void getBooks(){
         this.currentReservation.getReservations();
+    }
+
+    //CRUD MEthods
+    private List<Passenger> passengers = new ArrayList<>();
+    //create
+    public void addEmployee(Passenger passenger) {
+        passengers.add(passenger);
+    }
+
+    //read
+    public List<Passenger> getAllPassengers() {
+        return passengers;
+    }
+
+    //update
+    public void updatePassenger(Employee updatedPassenger) {
+
+    };
+
+    //delete
+    public void deletePassenger(String id){
+        passengers.removeIf(passenger -> passenger.getiD().equals(id));
     }
 }

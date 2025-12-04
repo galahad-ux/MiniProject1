@@ -13,6 +13,7 @@ public class Reservation {
     }
 
     public void bookFlight(Flight flight){
+        this.reservedFlights.add(flight);
         System.out.println("You have booked your flight successfully!");
     }
 
