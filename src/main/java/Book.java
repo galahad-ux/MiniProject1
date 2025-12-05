@@ -19,15 +19,12 @@ public class Book {
         System.out.println("You have booked your flight successfully!");
     }
 
-    public void cancelBook(String flightId){        //would be cancelReservation()
-        for (int i = 0; i < reservedFlights.size(); i++){
-            if (reservedFlights.get(i).getFlightNumber().equals(flightId)){     //checking flight number at i is equal to flight id
-                System.out.println("The flight " + flightId + "is cancelled for " + passenger.getName());
-                reservedFlights.remove(i);
-                return;
-            }
-        }
+    public void cancelBookn() {
+        this.status = status.Canceled; // or String
+        System.out.println("The flight " + flight.getFlightNumber()
+                + " is cancelled for " + passenger.getName());
     }
+
      public void modifyReservation(Status newStatus){
         this.status = newStatus;
         System.out.println("Reservation:" + reservationNumber + newStatus.name());

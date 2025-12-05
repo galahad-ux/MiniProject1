@@ -10,21 +10,23 @@ public class Airport {
     private List<Flight> arrivals = new ArrayList<>();
     private List<Flight> departures = new ArrayList<>();
 
+    //constructors
     public Airport (String name, String city, String description) {
         this.name = name;
         this.city = city;
         this.description = description;
     }
-
+    //methods
     public void assignFlight(Flight flight) {
-        if (flight.getOrigin() == this){
+        if (this.equals(flight.getOrigin())) {
             departures.add(flight);
         }
-        if (flight.getDestination() == this){
+        if (this.equals(flight.getDestination())) {
             arrivals.add(flight);
         }
     }
 
+    //getters
     public List<Flight> getArrivals(){
         return arrivals;
     }
