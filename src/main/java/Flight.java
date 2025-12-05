@@ -7,15 +7,13 @@ public class Flight {
     private String status;
 
     public Flight(String flightNumber, String origin, String destination, String departureTime, String arrivalDateTime, String status){
-        flightNumber = this.flightNumber;
-        origin = this.origin;
-        destination = this.destination;
-        departureTime = this.departureTime;
-        arrivalDateTime = this.arrivalDateTime;
-        status = this.status;
+        this.flightNumber = flightNumber;
+        this.origin = origin;
+        this.destination = destination;
+        this.departureTime = departureTime;
+        this.arrivalDateTime = arrivalDateTime;
+        this.status = status;
     }
-
-    public
 
     public String getFlightNumber(){
         return flightNumber;

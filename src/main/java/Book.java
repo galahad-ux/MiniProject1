@@ -5,11 +5,13 @@ public class Book {
     private String reservationNumber;
     private Passenger passenger;
     private List<Flight> reservedFlights;
+    private Status status;
 
-    public Book(String reservationNumber, Passenger passenger){
+    public Book(String reservationNumber, Passenger passenger, Status status){
         this.reservationNumber = reservationNumber;
         this.passenger = passenger;
         this.reservedFlights = new ArrayList<>();
+        this.status = status;
     }
 
     public void bookFlight(Flight flight){      //would be confirmReservation()
@@ -26,8 +28,10 @@ public class Book {
             }
         }
     }
-
-    //modifyReservation() to be added
+     public void modifyReservation(Status newStatus){
+        this.status = newStatus;
+        System.out.println("Reservation:" + reservationNumber + newStatus.name());
+     }
 
     public void getReservations(){
         System.out.println("For ID: " + reservationNumber);
