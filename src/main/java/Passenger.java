@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Passenger extends Person {
     public String passport;
-    private Reservation currentReservation;
+    private Book currentReservation;
 
     public Passenger(String id, String name, String address, String contact, String passport) {
         super(id, name, address, contact);
