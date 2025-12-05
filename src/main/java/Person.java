@@ -22,7 +22,7 @@ public class Person {
         return contact;
     }
 
-    public String getiD(){
+    public String getId(){
         return iD;
     }
 
