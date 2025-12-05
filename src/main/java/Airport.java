@@ -27,6 +27,9 @@ public class Airport {
     }
 
     //getters
+    public String getName() { return name; }
+    public String getCity() { return city; }
+    public String getDescription() { return description; }
     public List<Flight> getArrivals(){
         return arrivals;
     }

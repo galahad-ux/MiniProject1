@@ -8,7 +8,7 @@ public class Aircraft {
     private int capacity;
 
     //list of flights
-    private List<Flight> flights = new ArrayList<>();
+    private List<Flight> givenFlights = new ArrayList<>();
 
     //constructor
     public Aircraft(String registration, String model, int capacity) {
@@ -30,10 +30,14 @@ public class Aircraft {
         return capacity;
     }
 
+    public List<Flight> getGivenFlights(){
+        return givenFlights;
+    }
+
 
     //defining methods
     public boolean checkAvailability(LocalDateTime dep, LocalDateTime arr){
-        for (Flight f : flights) {
+        for (Flight f : givenFlights) {
             if (f.overlaps(dep, arr)){
                 return false;
             }
@@ -45,7 +49,7 @@ public class Aircraft {
         if (!checkAvailability(flight.getDepartureTime(), flight.getArrivalDateTime())) {
             return false;
         }
-        flights.add(flight);
+        givenFlights.add(flight);
         flight.setAircraft(this);
         return true;
     }

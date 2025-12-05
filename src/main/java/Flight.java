@@ -12,10 +12,11 @@ public class Flight {
     private FlightStatus status;
 
     private Aircraft aircraft;
-    private List<Book> reservations = new ArrayList<Book>();
+    private List<Book> reservations = new ArrayList<>();
 
     //constructors
-    public Flight(String flightNumber, Airport origin, Airport destination, LocalDateTime departureTime, LocalDateTime arrivalDateTime, FlightStatus status){
+    public Flight(String flightNumber, Airport origin, Airport destination, LocalDateTime departureTime,
+                  LocalDateTime arrivalDateTime, FlightStatus status){
         this.flightNumber = flightNumber;
         this.origin = origin;
         this.destination = destination;
@@ -67,7 +68,7 @@ public class Flight {
         this.status = FlightStatus.Canceled;
 
         for (Book b: reservations){
-            b.cancelBook();
+            b.modifyReservation(Status.Cancelled);
         }
 
     }

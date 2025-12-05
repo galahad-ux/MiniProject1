@@ -5,6 +5,7 @@ public class Person {
     private String contact;
 
     public Person(String iD, String name, String address, String contact){
+        this.iD = iD;
         this.name = name;
         this.address = address;
         this.contact = contact;

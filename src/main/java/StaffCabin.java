@@ -3,9 +3,14 @@ import java.util.List;
 
 public class StaffCabin extends Employee{
     String qualification;
-    public StaffCabin(String id, String name, String address, String contact, RoleIdentifier role, String numberEmp, String hiringDate, String qualification){
+    public StaffCabin(String id, String name, String address, String contact, RoleIdentifier role, String numberEmp,
+                      String hiringDate, String qualification){
         super(id,name,address,contact,role,numberEmp,hiringDate);
         this.qualification = qualification;
+    }
+
+    public String getQualification(){
+        return qualification;
     }
 
     public void assignFlight(String flightId){
@@ -17,25 +22,4 @@ public class StaffCabin extends Employee{
         System.out.println("Qualification: " + qualification);
     }
 
-    //CRUD MEthods
-    private List<StaffCabin> staffCabins = new ArrayList<>();
-    //create
-    public void addStaffCabin(StaffCabin staffCabin) {
-        staffCabins.add(staffCabin);
-    }
-
-    //read
-    public List<StaffCabin> getAllCabinStaffs() {
-        return staffCabins;
-    }
-
-    //update
-    public void updateCabinStaffs(StaffCabin staffCabin) {
-
-    };
-
-    //delete
-    public void deleteStaffCabin(String id){
-        staffCabins.removeIf(staff -> staff.getId().equals(id));
-    }
 }

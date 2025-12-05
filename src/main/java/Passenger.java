@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Passenger extends Person {
     public String passport;
-    private Book currentReservation;
+    private List<Book> reservations = new ArrayList<>();
 
     public Passenger(String id, String name, String address, String contact, String passport) {
         super(id, name, address, contact);
@@ -14,37 +15,26 @@ public class Passenger extends Person {
         return passport;
     }
 
-    public void bookFlight(Flight flight){
-        this.currentReservation.bookFlight(flight);
+    public Book bookFlight(Flight flight){
+        String reservationNumber = UUID.randomUUID().toString();
+        Book reservation = new Book(reservationNumber, this);
+        reservation.bookFlight(flight);
+        reservations.add(reservation);
+        System.out.println(getName() + " created reservation " + reservationNumber);
+        return reservation;
     }
 
-    public void cancelBook(String flightId){
-        this.currentReservation.cancelBook(flightId);
+    public boolean cancelBook(String reservationNumber){
+        for (Book book : reservations) {
+            if (book.getReservationNumber().equals(reservationNumber)) {
+                book.cancelBook();
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void getBooks(){
-        this.currentReservation.getReservations();
-    }
-
-    //CRUD MEthods
-    private List<Passenger> passengers = new ArrayList<>();
-    //create
-    public void addEmployee(Passenger passenger) {
-        passengers.add(passenger);
-    }
-
-    //read
-    public List<Passenger> getAllPassengers() {
-        return passengers;
-    }
-
-    //update
-    public void updatePassenger(Employee updatedPassenger) {
-
-    };
-
-    //delete
-    public void deletePassenger(String id){
-        passengers.removeIf(passenger -> passenger.getId().equals(id));
+    public List<Book> getReservations(){
+        return reservations;
     }
 }
