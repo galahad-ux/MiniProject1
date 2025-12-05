@@ -40,6 +40,6 @@ public class AirplanePilot extends Employee {
 
     //delete
     public void deletePilot(String id){
-        airplanePilots.removeIf(pilot -> pilot.getiD().equals(id));
+        airplanePilots.removeIf(pilot -> pilot.getId().equals(id));
     }
 }

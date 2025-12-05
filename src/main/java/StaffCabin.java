@@ -36,6 +36,6 @@ public class StaffCabin extends Employee{
 
     //delete
     public void deleteStaffCabin(String id){
-        staffCabins.removeIf(staff -> staff.getiD().equals(id));
+        staffCabins.removeIf(staff -> staff.getId().equals(id));
     }
 }

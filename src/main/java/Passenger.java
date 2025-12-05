@@ -45,6 +45,6 @@ public class Passenger extends Person {
 
     //delete
     public void deletePassenger(String id){
-        passengers.removeIf(passenger -> passenger.getiD().equals(id));
+        passengers.removeIf(passenger -> passenger.getId().equals(id));
     }
 }
