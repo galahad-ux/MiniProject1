@@ -27,6 +27,18 @@ public class Person {
         return iD;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
     public String getInfos(){
         return "ID: " + iD +
                 ", Name: " + name +

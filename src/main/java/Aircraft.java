@@ -54,6 +54,10 @@ public class Aircraft {
         return true;
     }
 
+    public void updateAircraft(String model, int capacity){
+        this.model = model;
+        this.capacity = capacity;
+    }
 
 }
 

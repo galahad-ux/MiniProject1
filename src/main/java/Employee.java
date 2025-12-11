@@ -21,7 +21,7 @@ public class Employee extends Person {
         this.role = role;
     }
 
-    public String getRoleInfo(){
+    public String getRole(){
         return "Role: " + role;
     }
 }

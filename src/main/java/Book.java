@@ -35,18 +35,19 @@ public class Book {
         System.out.println("Reservation:" + reservationNumber +"is"+ newStatus.name());
      }
 
-    public void getReservations(){
-        System.out.println("For ID: " + reservationNumber);
-        System.out.println("Booked Flights: ");
+    public String getReservations(){
+        String reserves = "For ID: " + reservationNumber + "\n";
+        reserves += "Booked Flights: \n";
 
         if (reservedFlights.isEmpty()){
-            System.out.println("No flights has been reserved.");
-            return;
+            reserves += "No flights has been reserved.";
+
         }else{
             for (Flight flight : reservedFlights){
-                System.out.println("Flight " + flight.getFlightNumber() + "(" + flight.getStatus() + "): "+
-                        flight.getOrigin() + "to" + flight.getDestination() + "at " + flight.getDepartureTime() );
+                reserves += "Flight " + flight.getFlightNumber() + "(" + flight.getStatus() + "): "+
+                        flight.getOrigin() + "to" + flight.getDestination() + "at " + flight.getDepartureTime() + "\n";
             }
         }
+        return reserves;
     }
 }

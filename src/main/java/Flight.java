@@ -44,8 +44,9 @@ public class Flight {
     public LocalDateTime getArrivalDateTime(){
         return arrivalDateTime;
     }
+
     public boolean overlaps(LocalDateTime dep, LocalDateTime arr) {
-        return false;
+        return !(arrivalDateTime.isBefore(dep) || departureTime.isAfter(arr));
     }
     public void setAircraft(Aircraft aircraft) {
         this.aircraft = aircraft;
@@ -79,6 +80,23 @@ public class Flight {
             Passenger p = b.getPassenger();
             System.out.println("- " + p.getName());
         }
+    }
+    public void updateFlight(LocalDateTime newDepart, LocalDateTime newArrive, FlightStatus newStat){
+        this.departureTime = newDepart;
+        this.arrivalDateTime = newArrive;
+        this.status = newStat;
+        System.out.println("Flight updated!!");
+    }
+
+    //crew assign to flight
+    private AirplanePilot pilot;
+    private List<StaffCabin> crew = new ArrayList<>();
+
+    public void assignPilot(AirplanePilot pilot){
+        this.pilot = pilot;
+    }
+    public void assignStaff(StaffCabin staffCabin){
+        crew.add(staffCabin);
     }
 
 }
