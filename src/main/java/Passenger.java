@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -36,5 +37,43 @@ public class Passenger extends Person {
 
     public List<Book> getReservations(){
         return reservations;
+    }
+
+    //CSV methods
+    public String toCSV(){
+        return getId() + "," + getName() + "," + getAddress() + "," + getContact() + "," + passport;
+    }
+
+    public static Passenger fromCSV(String csvLine){
+        String[] objects = csvLine.split(",");
+        return new Passenger(objects[0], objects[1], objects[2], objects[3], objects[4]);
+    }
+
+    public static void saveAllPassenger(List<Passenger> passengers){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("passengers.csv"))){
+            for (Passenger p : passengers){
+                writer.write(p.toCSV());
+                writer.newLine();
+            }
+            System.out.println("Saved to file");
+        } catch (IOException e) {
+            System.out.println("Error! can't save passenger" + e.getMessage());
+        }
+    }
+
+    public static List<Passenger> loadAllPassengers(){
+        List<Passenger> passengers = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader("passengers.csv"))){
+            String line;
+            while((line = reader.readLine()) != null){
+                if (!line.trim().isEmpty()){
+                    passengers.add(fromCSV(line));
+                }
+            }
+            System.out.println("Loaded passenger");
+        }catch (IOException e){
+            System.out.println("Error! Can't load passenger" + e.getMessage());
+        }
+        return passengers;
     }
 }
