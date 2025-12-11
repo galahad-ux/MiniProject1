@@ -49,7 +49,7 @@ public class Passenger extends Person {
         return new Passenger(objects[0], objects[1], objects[2], objects[3], objects[4]);
     }
 
-    public static void saveAllPassenger(List<Passenger> passengers){
+    public static void saveAllPassengers(List<Passenger> passengers, String filepath){
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("passengers.csv"))){
             for (Passenger p : passengers){
                 writer.write(p.toCSV());
@@ -61,7 +61,7 @@ public class Passenger extends Person {
         }
     }
 
-    public static List<Passenger> loadAllPassengers(){
+    public static List<Passenger> loadAllPassengers(String filePath){
         List<Passenger> passengers = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader("passengers.csv"))){
             String line;
@@ -70,7 +70,7 @@ public class Passenger extends Person {
                     passengers.add(fromCSV(line));
                 }
             }
-            System.out.println("Loaded passenger");
+            System.out.println("Loaded passengers:");
         }catch (IOException e){
             System.out.println("Error! Can't load passenger" + e.getMessage());
         }
