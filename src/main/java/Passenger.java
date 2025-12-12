@@ -15,6 +15,18 @@ public class Passenger extends Person {
     public String getPassport(){
         return passport;
     }
+    public String getName() {
+        return super.getName();
+    }
+    public String getAddress() {
+        return super.getAddress();
+    }
+    public String getId() {
+        return super.getId();
+    }
+    public String getContact() {
+        return super.getContact();
+    }
 
     public Book bookFlight(Flight flight){
         String reservationNumber = UUID.randomUUID().toString();
