@@ -162,11 +162,8 @@ public class Flight {
     }
 
 
-        public List<Flight> loadAllFlights(){
-                HashMap <String, Airport> airportMap = new HashMap<>();
-                HashMap < String, Aircraft > aircraftMap = new HashMap<>();
-                List<Flight> flights = new ArrayList<>();
-
+        public static ArrayList<Flight> loadAllFlights(HashMap <String, Airport> airportMap, HashMap < String, Aircraft > aircraftMap){
+            ArrayList<Flight> flights = new ArrayList<>();
             try (BufferedReader reader = new BufferedReader(new FileReader("flights.csv"))) {
 
                 String line;
