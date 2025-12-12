@@ -36,5 +36,52 @@ public class Main {
             System.out.println("  • " + p.getName());
         }
 
+        //testing flight
+
+            //data
+            Airport a1 = new Airport("CDG", "Paris", "Charles de Gaulle Airport");
+            Airport a2 = new Airport("HKG", "Hong Kong", "Chek Lap Kok");
+
+            Aircraft ac1 = new Aircraft("A320-001", "Airbus A320", 180);
+
+            Map<String, Airport> airportMap = new HashMap<>();
+            airportMap.put(a1.getName(), a1);
+            airportMap.put(a2.getName(), a2);
+
+            Map<String, Aircraft> aircraftMap = new HashMap<>();
+            aircraftMap.put(ac1.getRegistration(), ac1);
+
+            //creating flights
+            List<Flight> flights = new ArrayList<>();
+
+            Flight f1 = new Flight(
+                    "AF129",
+                    a1, a2,
+                    LocalDateTime.of(2025, 1, 10, 10, 30),
+                    LocalDateTime.of(2025, 1, 10, 20, 15),
+                    FlightStatus.Scheduled
+            );
+            f1.setAircraft(ac1);
+
+            flights.add(f1);
+
+            Flight.saveAllFlights(flights);
+            System.out.println(">>> Saved flights to CSV.");
+
+            List<Flight> loaded = Flight.loadAllFlights(airportMap, aircraftMap);
+            System.out.println(">>> Loaded flights from CSV.");
+
+            for (Flight f : loaded) {
+                System.out.println("Flight: " + f.getFlightNumber());
+                System.out.println("  From: " + f.getOrigin().getName());
+                System.out.println("  To:   " + f.getDestination().getName());
+                System.out.println("  Depart: " + f.getDepartureTime());
+                System.out.println("  Arrive: " + f.getArrivalDateTime());
+                System.out.println("  Status: " + f.getStatus());
+                System.out.println("  Aircraft: " + f.getAircraft().getRegistration());
+            }
+        }
+
+
     }
 }

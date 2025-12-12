@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,5 +102,89 @@ public class Flight {
     public void assignStaff(StaffCabin staffCabin){
         crew.add(staffCabin);
     }
+
+    //CSV
+    public String toCSV() {
+        return flightNumber + "," +
+                origin.getName() + "," +
+                destination.getName() + "," +
+                departureTime.toString() + "," +
+                arrivalDateTime.toString() + "," +
+                status.name() + "," +
+                (aircraft != null ? aircraft.getRegistration() : "");
+    }
+
+    public static Flight fromCSV(
+            String csvLine,
+            Map<String, Airport> airportMap,
+            Map<String, Aircraft> aircraftMap
+    ) {
+        String[] o = csvLine.split(",");
+
+        String flightNumber = o[0];
+        Airport origin = airportMap.get(o[1]);
+        Airport destination = airportMap.get(o[2]);
+
+        LocalDateTime dep = LocalDateTime.parse(o[3]);
+        LocalDateTime arr = LocalDateTime.parse(o[4]);
+        FlightStatus status = FlightStatus.valueOf(o[5]);
+
+        Aircraft aircraft = aircraftMap.get(o[6]);
+
+        Flight f = new Flight(flightNumber, origin, destination, dep, arr, status);
+        f.setAircraft(aircraft);
+
+        return f;
+    }
+
+    public static void saveAllFlights(List<Flight> flights) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("flights.csv"))) {
+
+            for (Flight f : flights) {
+                writer.write(f.toCSV());
+                writer.newLine();
+            }
+
+            System.out.println("Flights saved.");
+        } catch (IOException e) {
+            System.out.println("Error saving flights: " + e.getMessage());
+    }
+
+    public static List<Flight> loadAllFlights Object Map;
+        (
+            Map<String, Airport> airportMap,
+            Map<String, Aircraft> aircraftMap
+    ) {
+        List<Flight> flights = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("flights.csv"))) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!line.trim().isEmpty()) {
+                    flights.add(fromCSV(line, airportMap, aircraftMap));
+                }
+            }
+            System.out.println("Flights loaded.");
+
+        } catch (IOException e) {
+            System.out.println("Error loading flights: " + e.getMessage());
+        }
+
+        return flights;
+    }
+
+    Map<String, Airport> airportMap = new HashMap<>();
+    for (Airport a : system.getAirports()) {
+        airportMap.put(a.getName(), a);
+    }
+
+    Map<String, Aircraft> aircraftMap = new HashMap<>();
+    for (Aircraft ac : system.getAircrafts()) {
+        aircraftMap.put(ac.getRegistration(), ac);
+    }
+
+    List<Flight> flights = Flight.loadAllFlights(airportMap, aircraftMap);
+
 
 }
