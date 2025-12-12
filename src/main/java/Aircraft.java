@@ -110,7 +110,10 @@ public class Aircraft {
         return aircraftList;
     }
 
-
+    @Override
+    public String toString() {
+        return registration + " (" + model + ") - Capacity: " + capacity;
+    }
 
 }
 

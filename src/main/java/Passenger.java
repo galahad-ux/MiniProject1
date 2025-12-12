@@ -88,4 +88,9 @@ public class Passenger extends Person {
         }
         return passengers;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", Passport: " + passport;
+    }
 }

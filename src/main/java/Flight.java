@@ -179,6 +179,11 @@ public class Flight {
             }
             return flights;
         }
-
+    @Override
+    public String toString() {
+        return "Flight " + flightNumber + ": " +
+                origin.getName() + " to " + destination.getName() +
+                " (" + departureTime + ") - " + status;
+    }
     }
 

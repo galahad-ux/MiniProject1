@@ -46,4 +46,8 @@ public class Person {
                 ", Contact: " + contact;
     }
 
+    @Override
+    public String toString(){
+        return getInfos();
+    }
 }

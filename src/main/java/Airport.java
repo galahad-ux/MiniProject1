@@ -89,4 +89,9 @@ public class Airport {
         return airports;
     }
 
+    @Override
+    public String toString() {
+        return name + " - " + city + ": " + description;
+    }
+
 }
