@@ -146,7 +146,7 @@ public class Flight {
         return f;
     }
 
-    public static List<Flight> saveAllFlights(List<Flight> flights) {
+    public static void saveAllFlights(List<Flight> flights) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("flights.csv"))) {
 
             for (Flight f : flights) {
@@ -158,8 +158,9 @@ public class Flight {
         } catch (IOException e) {
             System.out.println("Error saving flights: " + e.getMessage());
         }
+    }
 
-        List<Flight> loadAllFlights(
+    public static List<Flight> loadAllFlights(
                 Map < String, Airport > airportMap,
                 Map < String, Aircraft > aircraftMap
         ){
@@ -180,6 +181,4 @@ public class Flight {
             }
             return flights;
         }
-
-    }
 }

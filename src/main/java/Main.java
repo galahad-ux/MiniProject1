@@ -1,6 +1,9 @@
 import javax.xml.transform.Source;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
@@ -59,7 +62,7 @@ public class Main {
                     a1, a2,
                     LocalDateTime.of(2025, 1, 10, 10, 30),
                     LocalDateTime.of(2025, 1, 10, 20, 15),
-                    FlightStatus.Scheduled
+                    FlightStatus.On_time
             );
             f1.setAircraft(ac1);
 
@@ -68,20 +71,18 @@ public class Main {
             Flight.saveAllFlights(flights);
             System.out.println(">>> Saved flights to CSV.");
 
-            List<Flight> loaded = Flight.loadAllFlights(airportMap, aircraftMap);
+            List<Flight> loadedFlights = Flight.loadAllFlights(airportMap, aircraftMap);
             System.out.println(">>> Loaded flights from CSV.");
 
-            for (Flight f : loaded) {
+            for (Flight f : loadedFlights) {
                 System.out.println("Flight: " + f.getFlightNumber());
                 System.out.println("  From: " + f.getOrigin().getName());
                 System.out.println("  To:   " + f.getDestination().getName());
                 System.out.println("  Depart: " + f.getDepartureTime());
                 System.out.println("  Arrive: " + f.getArrivalDateTime());
                 System.out.println("  Status: " + f.getStatus());
-                System.out.println("  Aircraft: " + f.getAircraft().getRegistration());
             }
         }
 
 
     }
-}
