@@ -1,5 +1,5 @@
 public enum Status {
     Confirmed,
-    On_Progress,
+    Pending,
     Cancelled
 }

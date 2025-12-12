@@ -40,8 +40,8 @@ class BookTest {
         Passenger p = new Passenger("Pb01", "Anuja KC", "Dallas Texas USA", "44 25 69 75 69", "PN265465");
         Book b = new Book("RE3", p);
 
-        b.modifyReservation(Status.On_Progress);
-        assertEquals(Status.On_Progress, b.getStatus());
+        b.modifyReservation(Status.Pending);
+        assertEquals(Status.Pending, b.getStatus());
     }
 
     @Test

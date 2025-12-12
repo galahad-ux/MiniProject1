@@ -153,9 +153,9 @@ public class Main {
             if (match) {
                 results.add(f);
                 System.out.println((results.size()) + ". " + f.getFlightNumber() +
-                        " | " + f.getOrigin().getName() + " to " + f.getDestination().getName() +
+                        " , " + f.getOrigin().getName() + " to " + f.getDestination().getName() +
                         " at " + f.getDepartureTime().toLocalTime() +
-                        " | Status: " + f.getStatus());
+                        " , FlightStatus: " + f.getStatus());
             }
         }
         if (results.isEmpty()) {
@@ -174,10 +174,105 @@ public class Main {
     }
 
     private static void viewBookings(){
+        System.out.println("\n- My Bookings: ");
+        System.out.print("Enter passport number: ");
+        String passport = scanner.nextLine();
 
+        Passenger passenger = null;
+        for (Passenger p : passengers) {
+            if (p.getPassport().equals(passport)) {
+                passenger = p;
+                break;
+            }
+        }
+        if (passenger == null) {
+            System.out.println("Passenger not found");
+            return;
+        }
+        List<Book> bookings = passenger.getReservations();
+        if (bookings.isEmpty()) {
+            System.out.println("No bookings found.");
+            return;
+        }
+        System.out.println("\nBookings for: " + passenger.getName());
+        for (Book booking : bookings) {
+            System.out.println("\nReservation: " + booking.getReservationNumber());
+            System.out.println("BookingStatus: " + booking.getStatus());
+
+            for (Flight flight : booking.getFlights()) {
+                System.out.println("- Flight: " + flight.getFlightNumber());
+                System.out.println("- Route: " + flight.getOrigin().getName() + " to " + flight.getDestination().getName());
+                System.out.println("- Time: " + flight.getDepartureTime());
+                System.out.println("- FlightStatus: " + flight.getStatus());
+            }
+        }
     }
 
     private static void modifyBooking(){
+        System.out.println("\nModify Booking: ");
+        System.out.print("Enter passport number: ");
+        String passport = scanner.nextLine();
 
+        Passenger passenger = null;
+        for (Passenger p : passengers) {
+            if (p.getPassport().equals(passport)) {
+                passenger = p;
+                break;
+            }
+        }
+        if (passenger == null) {
+            System.out.println("Passenger not found!");
+            return;
+        }
+
+        List<Book> bookings = passenger.getReservations();
+        if (bookings.isEmpty()) {
+            System.out.println("No bookings to modify.");
+            return;
+        }
+        System.out.println("\nYour bookings:");
+        for (int i = 0; i < bookings.size(); i++) {
+            Book b = bookings.get(i);
+            System.out.println((i+1) + ". Reservation: " + b.getReservationNumber() +
+                    " , BookingStatus: " + b.getStatus());
+        }
+
+        System.out.print("\nSelect booking to modify: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (choice < 1 || choice > bookings.size()) {
+            System.out.println("Invalid choice!");
+            return;
+        }
+
+        Book selected = bookings.get(choice - 1);
+
+        System.out.println("\n1. Cancel booking");
+        System.out.println("2. Change status");
+        System.out.print("Choice: ");
+        int action = scanner.nextInt();
+        scanner.nextLine();
+
+        if (action == 1) {
+            passenger.cancelBook(selected.getReservationNumber());
+        } else if (action == 2) {
+            System.out.println("\n1. Confirm");
+            System.out.println("2. Pending");
+            System.out.print("New status: ");
+
+            int statusChoice = scanner.nextInt();
+            scanner.nextLine();
+
+            Status newStatus = switch (statusChoice) {
+                case 1 -> Status.Confirmed;
+                case 2 -> Status.Pending;
+                default -> {
+                    System.out.println("Invalid choice!");
+                    yield selected.getStatus();
+                }
+            };
+            selected.modifyReservation(newStatus);
+        }
     }
 }
