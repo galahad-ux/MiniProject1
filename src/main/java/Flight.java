@@ -1,6 +1,7 @@
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -158,11 +159,12 @@ public class Flight {
         } catch (IOException e) {
             System.out.println("Error saving flights: " + e.getMessage());
         }
+    }
 
-        List<Flight> loadAllFlights(
-                Map < String, Airport > airportMap,
-                Map < String, Aircraft > aircraftMap
-        ){
+
+        public List<Flight> loadAllFlights(){
+                HashMap <String, Airport> airportMap = new HashMap<>();
+                HashMap < String, Aircraft > aircraftMap = new HashMap<>();
             List<Flight> flights = new ArrayList<>();
 
             try (BufferedReader reader = new BufferedReader(new FileReader("flights.csv"))) {
