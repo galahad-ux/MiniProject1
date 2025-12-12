@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 public class Passenger extends Person {
@@ -28,8 +29,13 @@ public class Passenger extends Person {
         return super.getContact();
     }
 
+    private String generateReservationId() {
+        Random r = new Random();
+        return "RS-" + (10000 + r.nextInt(90000));
+    }
+
     public Book bookFlight(Flight flight){
-        String reservationNumber = UUID.randomUUID().toString();
+        String reservationNumber = generateReservationId();
         Book reservation = new Book(reservationNumber, this);
         reservation.bookFlight(flight);
         reservations.add(reservation);
