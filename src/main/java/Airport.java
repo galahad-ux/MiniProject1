@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +36,57 @@ public class Airport {
     }
     public List<Flight> getDepartures(){
         return departures;
+    }
+
+    //csv
+    public String toCSV() {
+        return name + "," + city + "," + description;
+    }
+
+    public static Airport fromCSV(String csvLine) {
+        String[] o = csvLine.split(",");
+
+        String name = o[0];
+        String city = o[1];
+        String description = o[2];
+
+        return new Airport(name, city, description);
+    }
+
+    public static void saveAllAirports(List<Airport> airports) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("airports.csv"))) {
+
+            for (Airport a : airports) {
+                writer.write(a.toCSV());
+                writer.newLine();
+            }
+
+            System.out.println("Airports saved.");
+
+        } catch (IOException e) {
+            System.out.println("Error saving airports: " + e.getMessage());
+        }
+    }
+
+    public static List<Airport> loadAllAirports() {
+        List<Airport> airports = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("airports.csv"))) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!line.trim().isEmpty()) {
+                    airports.add(fromCSV(line));
+                }
+            }
+
+            System.out.println("Airports loaded.");
+
+        } catch (IOException e) {
+            System.out.println("Error loading airports: " + e.getMessage());
+        }
+
+        return airports;
     }
 
 }
