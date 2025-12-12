@@ -47,11 +47,11 @@ public class Main {
 
             Aircraft ac1 = new Aircraft("A320-001", "Airbus A320", 180);
 
-            Map<String, Airport> airportMap = new HashMap<>();
+            HashMap<String, Airport> airportMap = new HashMap<>();
             airportMap.put(a1.getName(), a1);
             airportMap.put(a2.getName(), a2);
 
-            Map<String, Aircraft> aircraftMap = new HashMap<>();
+            HashMap<String, Aircraft> aircraftMap = new HashMap<>();
             aircraftMap.put(ac1.getRegistration(), ac1);
 
             //creating flights
