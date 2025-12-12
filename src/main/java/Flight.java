@@ -1,10 +1,8 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class Flight {
@@ -20,7 +18,7 @@ public class Flight {
 
     //constructors
     public Flight(String flightNumber, Airport origin, Airport destination, LocalDateTime departureTime,
-                  LocalDateTime arrivalDateTime, FlightStatus status){
+                  LocalDateTime arrivalDateTime, FlightStatus status) {
         this.flightNumber = flightNumber;
         this.origin = origin;
         this.destination = destination;
@@ -30,28 +28,34 @@ public class Flight {
     }
 
     //getters
-    public String getFlightNumber(){
+    public String getFlightNumber() {
         return flightNumber;
     }
-    public Airport getOrigin(){
+
+    public Airport getOrigin() {
         return origin;
     }
-    public Airport getDestination(){
+
+    public Airport getDestination() {
         return destination;
     }
-    public LocalDateTime getDepartureTime(){
+
+    public LocalDateTime getDepartureTime() {
         return departureTime;
     }
-    public FlightStatus getStatus(){
+
+    public FlightStatus getStatus() {
         return status;
     }
-    public LocalDateTime getArrivalDateTime(){
+
+    public LocalDateTime getArrivalDateTime() {
         return arrivalDateTime;
     }
 
     public boolean overlaps(LocalDateTime dep, LocalDateTime arr) {
         return !(arrivalDateTime.isBefore(dep) || departureTime.isAfter(arr));
     }
+
     public void setAircraft(Aircraft aircraft) {
         this.aircraft = aircraft;
     }
@@ -61,7 +65,8 @@ public class Flight {
     public void addReservation(Book reservation) { //one flight can be booked by many
         reservations.add(reservation);
     }
-    public void planFlight(Airport origin, Airport destination, LocalDateTime dep, LocalDateTime arr, Aircraft a){
+
+    public void planFlight(Airport origin, Airport destination, LocalDateTime dep, LocalDateTime arr, Aircraft a) {
         this.origin = origin;
         this.destination = destination;
         this.departureTime = dep;
@@ -69,14 +74,16 @@ public class Flight {
         this.status = FlightStatus.On_time;   // or whatever default you chose
         this.aircraft = a;
     }
-    public void cancelFlight(){
+
+    public void cancelFlight() {
         this.status = FlightStatus.Canceled;
 
-        for (Book b: reservations){
+        for (Book b : reservations) {
             b.modifyReservation(Status.Cancelled);
         }
 
     }
+
     public void listingPassengers() {
         System.out.println("Passengers for flight " + flightNumber + ":");
 
@@ -85,7 +92,8 @@ public class Flight {
             System.out.println("- " + p.getName());
         }
     }
-    public void updateFlight(LocalDateTime newDepart, LocalDateTime newArrive, FlightStatus newStat){
+
+    public void updateFlight(LocalDateTime newDepart, LocalDateTime newArrive, FlightStatus newStat) {
         this.departureTime = newDepart;
         this.arrivalDateTime = newArrive;
         this.status = newStat;
@@ -96,10 +104,11 @@ public class Flight {
     private AirplanePilot pilot;
     private List<StaffCabin> crew = new ArrayList<>();
 
-    public void assignPilot(AirplanePilot pilot){
+    public void assignPilot(AirplanePilot pilot) {
         this.pilot = pilot;
     }
-    public void assignStaff(StaffCabin staffCabin){
+
+    public void assignStaff(StaffCabin staffCabin) {
         crew.add(staffCabin);
     }
 
@@ -137,7 +146,7 @@ public class Flight {
         return f;
     }
 
-    public static void saveAllFlights(List<Flight> flights) {
+    public static List<Flight> saveAllFlights(List<Flight> flights) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("flights.csv"))) {
 
             for (Flight f : flights) {
@@ -148,43 +157,29 @@ public class Flight {
             System.out.println("Flights saved.");
         } catch (IOException e) {
             System.out.println("Error saving flights: " + e.getMessage());
-    }
-
-    public static List<Flight> loadAllFlights Object Map;
-        (
-            Map<String, Airport> airportMap,
-            Map<String, Aircraft> aircraftMap
-    ) {
-        List<Flight> flights = new ArrayList<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader("flights.csv"))) {
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (!line.trim().isEmpty()) {
-                    flights.add(fromCSV(line, airportMap, aircraftMap));
-                }
-            }
-            System.out.println("Flights loaded.");
-
-        } catch (IOException e) {
-            System.out.println("Error loading flights: " + e.getMessage());
         }
 
-        return flights;
+        List<Flight> loadAllFlights(
+                Map < String, Airport > airportMap,
+                Map < String, Aircraft > aircraftMap
+        ){
+            List<Flight> flights = new ArrayList<>();
+
+            try (BufferedReader reader = new BufferedReader(new FileReader("flights.csv"))) {
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    if (!line.trim().isEmpty()) {
+                        flights.add(fromCSV(line, airportMap, aircraftMap));
+                    }
+                }
+                System.out.println("Flights loaded.");
+
+            } catch (IOException e) {
+                System.out.println("Error loading flights: " + e.getMessage());
+            }
+            return flights;
+        }
+
     }
-
-    Map<String, Airport> airportMap = new HashMap<>();
-    for (Airport a : system.getAirports()) {
-        airportMap.put(a.getName(), a);
-    }
-
-    Map<String, Aircraft> aircraftMap = new HashMap<>();
-    for (Aircraft ac : system.getAircrafts()) {
-        aircraftMap.put(ac.getRegistration(), ac);
-    }
-
-    List<Flight> flights = Flight.loadAllFlights(airportMap, aircraftMap);
-
-
 }
